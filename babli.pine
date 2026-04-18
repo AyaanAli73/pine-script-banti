@@ -1,0 +1,13 @@
+//@version=5
+indicator("Seller Tracking Signal", overlay=true)
+
+// Logic for Seller Reduction
+call_side_weak = close > open and volume > ta.sma(volume, 20) and low < low[1]
+put_side_weak = close < open and volume > ta.sma(volume, 20) and high > high[1]
+
+// Display Text on Chart
+if call_side_weak
+    label.new(bar_index, low, "CALL SIDE: SELLERS DECREASING", color=color.green, textcolor=color.white, style=label.style_label_up)
+
+if put_side_weak
+    label.new(bar_index, high, "PUT SIDE: SELLERS DECREASING", color=color.red, textcolor=color.white, style=label.style_label_down)
